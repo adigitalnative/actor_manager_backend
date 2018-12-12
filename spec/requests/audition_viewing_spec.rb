@@ -10,13 +10,15 @@ RSpec.describe "Viewing auditions", type: :request do
     context "when there is at least one audition" do
       before do
         FactoryBot.create_list(:audition, 10)
+        @audition_to_find = FactoryBot.create(:audition)
         get '/api/v1/auditions'
       end
 
       it "returns the correct number of auditions" do
         body = JSON.parse(response.body)
-        expect(body.size).to eq(10)
+        expect(body.size).to eq(11)
       end
+
     end
   end
 end

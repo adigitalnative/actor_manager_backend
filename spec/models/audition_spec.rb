@@ -16,4 +16,12 @@ RSpec.describe Audition, type: :model do
     audition.prepare = nil
     expect(audition).to_not be_valid
   end
+
+  it "can have projects" do
+    expect(audition).to respond_to(:project)
+  end
+
+  it "can have a company" do
+    expect(audition).to respond_to(:company)
+  end
 end
