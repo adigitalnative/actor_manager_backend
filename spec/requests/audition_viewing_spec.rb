@@ -34,7 +34,6 @@ RSpec.describe "Viewing auditions", type: :request do
       it "includes the associated categories" do
         expect(@body.last[:category]).to eq("Callback")
       end
-
     end
   end
 end
