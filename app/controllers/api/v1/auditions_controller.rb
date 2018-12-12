@@ -36,7 +36,7 @@ class Api::V1::AuditionsController < ApplicationController
   private
 
   def audition_params
-    params.require(:audition).permit(:bring, :prepare)
+    params.require(:audition).permit(:bring, :prepare, :project_id, :category_id)
   end
 
 end

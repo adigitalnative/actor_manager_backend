@@ -9,14 +9,30 @@ RSpec.describe "Viewing auditions", type: :request do
 
     context "when there is at least one audition" do
       before do
-        FactoryBot.create_list(:audition, 10)
-        @audition_to_find = FactoryBot.create(:audition)
+        category = FactoryBot.create(:category, name: "Callback")
+        @company = FactoryBot.create(:company, name: "A company")
+        @project = FactoryBot.create(:project, name: "A Project", company: @company)
+        FactoryBot.create_list(:audition, 10, project: @project, category: category)
+        @audition_to_find = FactoryBot.create(:audition, project: @project,
+          bring: "The thing to bring", prepare: "The thing to prepare", category: category)
         get '/api/v1/auditions'
+        @body = JSON.parse(response.body, symbolize_names: true)
       end
 
       it "returns the correct number of auditions" do
-        body = JSON.parse(response.body)
-        expect(body.size).to eq(11)
+        expect(@body.size).to eq(11)
+      end
+
+      it "includes the associated project" do
+        expect(@body.last[:project]).to eq("A Project")
+      end
+
+      it "includes the associated company" do
+        expect(@body.last[:company]).to eq("A company")
+      end
+
+      it "includes the associated categories" do
+        expect(@body.last[:category]).to eq("Callback")
       end
 
     end

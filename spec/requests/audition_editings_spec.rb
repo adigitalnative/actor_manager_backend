@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Editing an audition", type: :request do
   before do
-    @audition = FactoryBot.create(:audition, bring: "Something to bring", prepare: "Something to prepare")
+    project = FactoryBot.create(:project)
+    category = FactoryBot.create(:category)
+    @audition = FactoryBot.create(:audition, bring: "Something to bring", prepare: "Something to prepare", project: project, category: category)
   end
 
   context "with valid input" do

@@ -1,12 +1,13 @@
 class Audition < ApplicationRecord
 
-  belongs_to :project, optional: true
+  belongs_to :project
+  belongs_to :category
 
   validates :bring, presence: true
   validates :prepare, presence: true
 
   def company
-    project ? project.company : nil
+    project.company
   end
 
 end

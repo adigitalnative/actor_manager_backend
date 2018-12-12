@@ -24,4 +24,8 @@ RSpec.describe Audition, type: :model do
   it "can have a company" do
     expect(audition).to respond_to(:company)
   end
+
+  it "has a category" do
+    expect(audition).to respond_to(:category)
+  end
 end

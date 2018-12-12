@@ -3,12 +3,16 @@ require 'rails_helper'
 RSpec.describe "AuditionCreations", type: :request do
   context "with valid input" do
     before do
+      project = FactoryBot.create(:project)
+      category = FactoryBot.create(:category, name: "Foo")
       post '/api/v1/auditions',
         headers: { 'Accept':'application/json' },
         params: {
                   audition: {
                     bring: "Something you should bring",
-                    prepare: "Something you should prepare"
+                    prepare: "Something you should prepare",
+                    project_id: project.id,
+                    category_id: category.id
                   }
                 }
     end
@@ -36,7 +40,8 @@ RSpec.describe "AuditionCreations", type: :request do
         params: {
                   audition: {
                     bring: "",
-                    prepare: ""
+                    prepare: "",
+                    project_id: nil
                   }
                 }
       @body = JSON.parse(response.body, symbolize_names: true)

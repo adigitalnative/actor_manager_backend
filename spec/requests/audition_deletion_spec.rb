@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe "Deleting an audition", type: :request do
   context "when the audition exists" do
     before do
-      @audition_to_delete = FactoryBot.create(:audition)
+      project = FactoryBot.create(:project)
+      category = FactoryBot.create(:category)
+      @audition_to_delete = FactoryBot.create(:audition, project: project, category: category)
       @audition_count = Audition.all.count
       delete '/api/v1/auditions/' + @audition_to_delete.id.to_s,
         headers: { 'Accept':'application/json' }
@@ -25,7 +27,9 @@ RSpec.describe "Deleting an audition", type: :request do
 
   context "when the audition cannot be found" do
     before do
-      @audition_to_delete = FactoryBot.create(:audition)
+      project = FactoryBot.create(:project)
+      category = FactoryBot.create(:category)
+      @audition_to_delete = FactoryBot.create(:audition, project: project, category: category)
       @audition_to_delete_id = @audition_to_delete.id
       @audition_to_delete.destroy
       delete '/api/v1/auditions/' + @audition_to_delete.id.to_s,
