@@ -3,8 +3,14 @@ require 'rails_helper'
 RSpec.describe "CompanyLists", type: :request do
   describe "GET /companies" do
     before do
+      user = FactoryBot.create(:user)
+      jwt = JWT.encode({user_id: user.id}, 'the_secret')
       FactoryBot.create_list(:company, 10)
-      get '/api/v1/companies'
+      get '/api/v1/companies',
+      headers: {
+        'Accept':'application/json',
+        'Authorization':"Bearer #{jwt}"
+       }
     end
 
     it "returns a 200 OK status" do

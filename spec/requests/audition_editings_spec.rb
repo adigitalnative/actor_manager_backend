@@ -9,8 +9,13 @@ RSpec.describe "Editing an audition", type: :request do
 
   context "with valid input" do
     before do
+      user = FactoryBot.create(:user)
+      jwt = JWT.encode({user_id: user.id}, 'the_secret')
       patch '/api/v1/auditions/' + @audition.id.to_s,
-        headers: { 'Accept':'application/json' },
+      headers: {
+        'Accept':'application/json',
+        'Authorization':"Bearer #{jwt}"
+       },
         params: {
                   audition: {
                     bring: "A new thing",
@@ -37,8 +42,13 @@ RSpec.describe "Editing an audition", type: :request do
 
   context "with invalid input" do
     before do
+      user = FactoryBot.create(:user)
+      jwt = JWT.encode({user_id: user.id}, 'the_secret')
       patch '/api/v1/auditions/' + @audition.id.to_s,
-        headers: { 'Accept':'application/json' },
+      headers: {
+        'Accept':'application/json',
+        'Authorization':"Bearer #{jwt}"
+       },
         params: {
                   audition: {
                     bring: "",
