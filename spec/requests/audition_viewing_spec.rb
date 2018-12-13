@@ -3,19 +3,31 @@ require 'rails_helper'
 RSpec.describe "Viewing auditions", type: :request do
   describe "getting a list of auditions at /api/v1/auditions" do
     it "returns 200 OK" do
-      get api_v1_auditions_path
+      user = FactoryBot.create(:user)
+      jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      get api_v1_auditions_path,
+      headers: {
+        'Accept':'application/json',
+        'Authorization':"Bearer #{jwt}"
+       }
       expect(response).to have_http_status(200)
     end
 
     context "when there is at least one audition" do
       before do
+        user = FactoryBot.create(:user)
+        jwt = JWT.encode({user_id: user.id}, 'the_secret')
         category = FactoryBot.create(:category, name: "Callback")
         @company = FactoryBot.create(:company, name: "A company")
         @project = FactoryBot.create(:project, name: "A Project", company: @company)
         FactoryBot.create_list(:audition, 10, project: @project, category: category)
         @audition_to_find = FactoryBot.create(:audition, project: @project,
           bring: "The thing to bring", prepare: "The thing to prepare", category: category)
-        get '/api/v1/auditions'
+        get '/api/v1/auditions',
+        headers: {
+          'Accept':'application/json',
+          'Authorization':"Bearer #{jwt}"
+         }
         @body = JSON.parse(response.body, symbolize_names: true)
       end
 

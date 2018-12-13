@@ -3,10 +3,15 @@ require 'rails_helper'
 RSpec.describe "AuditionCreations", type: :request do
   context "with valid input" do
     before do
+      user = FactoryBot.create(:user)
+      jwt = JWT.encode({user_id: user.id}, 'the_secret')
       project = FactoryBot.create(:project)
       category = FactoryBot.create(:category, name: "Foo")
       post '/api/v1/auditions',
-        headers: { 'Accept':'application/json' },
+        headers: {
+          'Accept':'application/json',
+          'Authorization':"Bearer #{jwt}"
+         },
         params: {
                   audition: {
                     bring: "Something you should bring",
@@ -35,8 +40,13 @@ RSpec.describe "AuditionCreations", type: :request do
 
   context "with invalid input" do
     before do
+      user = FactoryBot.create(:user)
+      jwt = JWT.encode({user_id: user.id}, 'the_secret')
       post '/api/v1/auditions',
-        headers: { 'Accept':'application/json' },
+        headers: {
+          'Accept':'application/json',
+          'Authorization':"Bearer #{jwt}"
+         },
         params: {
                   audition: {
                     bring: "",

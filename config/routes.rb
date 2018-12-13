@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :categories, only: [:index]
       resources :projects, only: [:index]
       resources :companies, only: [:index]
+      resources :users, only: [:create]
     end
   end
 end
