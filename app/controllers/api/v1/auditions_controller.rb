@@ -5,7 +5,13 @@ class Api::V1::AuditionsController < ApplicationController
   end
 
   def create
-    @audition = Audition.new(audition_params)
+    if params["audition"]["new_project_title"]
+      project = Project.create(name: params["audition"]["new_project_title"])
+      @audition = project.auditions.new(audition_params)
+    else
+      @audition = Audition.new(audition_params)
+    end
+
     if @audition.valid?
       @audition.save
       render json: @audition, status: :created
