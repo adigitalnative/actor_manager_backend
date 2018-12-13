@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :companies, only: [:index]
       resources :users, only: [:create]
       post '/login', to: 'auth#create'
+      post '/authorize', to: 'auth#authorize_token'
     end
   end
 end
