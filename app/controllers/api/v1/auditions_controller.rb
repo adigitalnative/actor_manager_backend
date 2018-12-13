@@ -5,7 +5,21 @@ class Api::V1::AuditionsController < ApplicationController
   end
 
   def create
-    @audition = Audition.new(audition_params)
+    if params["audition"]["new_project_title"] && params["audition"]["new_company_title"]
+      company = Company.create(name: params["audition"]["new_company_title"])
+      project = company.projects.create(name: params["audition"]["new_project_title"])
+      @audition = project.auditions.new(audition_params)
+    elsif params["audition"]["new_project_title"] && params["audition"]["company_id"]
+      company = Company.find(params["audition"]["company_id"])
+      project = company.projects.create(name: params["audition"]["new_project_title"])
+      @audition = project.auditions.new(audition_params)
+    elsif params["audition"]["new_project_title"]
+      project = Project.create(name: params["audition"]["new_project_title"])
+      @audition = project.auditions.new(audition_params)
+    else
+      @audition = Audition.new(audition_params)
+    end
+
     if @audition.valid?
       @audition.save
       render json: @audition, status: :created
@@ -36,7 +50,7 @@ class Api::V1::AuditionsController < ApplicationController
   private
 
   def audition_params
-    params.require(:audition).permit(:bring, :prepare)
+    params.require(:audition).permit(:bring, :prepare, :project_id, :category_id)
   end
 
 end
