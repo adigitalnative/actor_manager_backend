@@ -2,15 +2,18 @@ require 'rails_helper'
 
 RSpec.describe "Editing an audition", type: :request do
   before do
-    project = FactoryBot.create(:project)
+    @user = FactoryBot.create(:user)
+    project = FactoryBot.create(:project, user: @user)
     category = FactoryBot.create(:category)
-    @audition = FactoryBot.create(:audition, bring: "Something to bring", prepare: "Something to prepare", project: project, category: category)
+    @audition = FactoryBot.create(:audition, bring: "Something to bring",
+      prepare: "Something to prepare", project: project, category: category,
+      user: @user
+    )
   end
 
   context "with valid input" do
     before do
-      user = FactoryBot.create(:user)
-      jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: @user.id}, 'the_secret')
       patch '/api/v1/auditions/' + @audition.id.to_s,
       headers: {
         'Accept':'application/json',
@@ -38,12 +41,12 @@ RSpec.describe "Editing an audition", type: :request do
       expect(body[:bring]).to eq("A new thing")
       expect(body[:prepare]).to eq("foo to prepare")
     end
+
   end
 
   context "with invalid input" do
     before do
-      user = FactoryBot.create(:user)
-      jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: @user.id}, 'the_secret')
       patch '/api/v1/auditions/' + @audition.id.to_s,
       headers: {
         'Accept':'application/json',
@@ -68,5 +71,8 @@ RSpec.describe "Editing an audition", type: :request do
     it "returns a message param for useful info" do
       expect(@body[:message]).to eq("Could not save audition")
     end
+
+    it "does not allow editing of another user's audition"
+    it "doesn't allow editing without a token"
   end
 end

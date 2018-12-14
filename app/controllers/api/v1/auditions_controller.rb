@@ -1,20 +1,24 @@
 class Api::V1::AuditionsController < ApplicationController
 
   def index
-    render json: Audition.all
+    render json: current_user.auditions
   end
 
   def create
+    params["audition"]["user_id"] = current_user.id
     if params["audition"]["new_project_title"] && params["audition"]["new_company_title"]
-      company = Company.create(name: params["audition"]["new_company_title"])
-      project = company.projects.create(name: params["audition"]["new_project_title"])
+      company = Company.create(name: params["audition"]["new_company_title"], user_id: current_user.id)
+      project = company.projects.create(name: params["audition"]["new_project_title"],
+        user: current_user)
       @audition = project.auditions.new(audition_params)
     elsif params["audition"]["new_project_title"] && params["audition"]["company_id"]
-      company = Company.find(params["audition"]["company_id"])
-      project = company.projects.create(name: params["audition"]["new_project_title"])
+      company = current_user.companies.find(params["audition"]["company_id"])
+      project = company.projects.create(name: params["audition"]["new_project_title"],
+        user: current_user)
       @audition = project.auditions.new(audition_params)
     elsif params["audition"]["new_project_title"]
-      project = Project.create(name: params["audition"]["new_project_title"])
+      project = Project.create(name: params["audition"]["new_project_title"],
+        user: current_user)
       @audition = project.auditions.new(audition_params)
     else
       @audition = Audition.new(audition_params)
@@ -29,7 +33,7 @@ class Api::V1::AuditionsController < ApplicationController
   end
 
   def update
-    @audition = Audition.find(params[:id])
+    @audition = current_user.auditions.find(params[:id])
     if @audition.update(audition_params)
       render json: @audition, status: :accepted
     else
@@ -38,8 +42,8 @@ class Api::V1::AuditionsController < ApplicationController
   end
 
   def destroy
-    if Audition.exists?(id: params[:id])
-      @audition = Audition.find(params[:id])
+    if Audition.exists?(id: params[:id], user_id: current_user.id)
+      @audition = Audition.find_by(id: params[:id], user_id: current_user.id)
       @audition.destroy
       render json: @audition, status: :accepted
     else
@@ -50,7 +54,7 @@ class Api::V1::AuditionsController < ApplicationController
   private
 
   def audition_params
-    params.require(:audition).permit(:bring, :prepare, :project_id, :category_id)
+    params.require(:audition).permit(:bring, :prepare, :project_id, :category_id, :user_id)
   end
 
 end

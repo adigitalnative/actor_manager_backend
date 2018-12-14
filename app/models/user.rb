@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :auditions
+  has_many :projects
+  has_many :companies
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :password_digest, presence: true

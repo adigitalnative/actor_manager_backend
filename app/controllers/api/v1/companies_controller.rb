@@ -1,7 +1,7 @@
 class Api::V1::CompaniesController < ApplicationController
 
   def index
-    render json: Company.all
+    render json: current_user.companies
   end
 
 end

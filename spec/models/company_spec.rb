@@ -16,4 +16,8 @@ RSpec.describe Company, type: :model do
     expect(company).to respond_to(:projects)
   end
 
+  it "responds to user" do
+    expect(company).to respond_to(:user)
+  end
+
 end
