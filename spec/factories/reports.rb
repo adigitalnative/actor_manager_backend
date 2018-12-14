@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :report do
-    pre { "MyText" }
-    in_room { "MyText" }
-    post { "MyText" }
     audition { nil }
+    result { nil }
+    notes { "MyText" }
+    people { "MyText" }
+    auditors { "MyText" }
   end
 end
