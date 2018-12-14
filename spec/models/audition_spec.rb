@@ -28,4 +28,8 @@ RSpec.describe Audition, type: :model do
   it "has a category" do
     expect(audition).to respond_to(:category)
   end
+
+  it "belongs to a user" do
+    expect(audition).to respond_to(:user)
+  end
 end

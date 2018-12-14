@@ -4,5 +4,6 @@ FactoryBot.define do
     prepare { "MyText" }
     project { FactoryBot.build_stubbed(:project) }
     category { FactoryBot.build_stubbed(:category) }
+    user { FactoryBot.build_stubbed(:user) }
   end
 end
