@@ -33,4 +33,12 @@ RSpec.describe User, type: :model do
     expect(user).to_not be_valid
   end
 
+  it "has many projects" do
+    expect(user).to respond_to(:projects)
+  end
+
+  it "has many companies" do
+    expect(user).to respond_to(:companies)
+  end
+
 end
