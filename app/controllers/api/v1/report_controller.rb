@@ -1,10 +1,17 @@
-class Api::V1::ReportsController < ApplicationController
+class Api::V1::ReportController < ApplicationController
 
   before_action :set_audition
 
   def create
     if @audition.create_report(report_params)
       render json: @audition.report, status: :created
+    end
+  end
+
+  def update
+    report = @audition.report
+    if report.update(report_params)
+      render json: report, status: :accepted
     end
   end
 

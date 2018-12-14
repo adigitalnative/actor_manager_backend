@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "Creating Reports", type: :request do
-  describe "POST /reports" do
+RSpec.describe "Editing a report", type: :request do
+  describe "PATCH /api/v1/auditions/:audition_id/report" do
 
     context "with valid parameters" do
       before do
@@ -11,8 +11,9 @@ RSpec.describe "Creating Reports", type: :request do
         project = FactoryBot.create(:project, user: user)
         category = FactoryBot.create(:category, name: "Foo")
         audition = FactoryBot.create(:audition, project: project, category: category, user: user)
+        @report = FactoryBot.create(:report, audition: audition)
 
-        post "/api/v1/auditions/#{audition.id}/report",
+        patch "/api/v1/auditions/#{audition.id}/report",
           headers: {
             'Accept':'application/json',
             'Authorization':"Bearer #{jwt}"
@@ -27,11 +28,11 @@ RSpec.describe "Creating Reports", type: :request do
       end
 
       it "returns 201 Created" do
-        expect(response).to have_http_status(201)
+        expect(response).to have_http_status(202)
       end
 
-      it "creates the new audition" do
-        expect(Report.last.notes).to eq("Some notes about the audition")
+      it "updates the audition" do
+        expect(Report.find(@report.id).notes).to eq("Some notes about the audition")
       end
 
       it "returns JSON with the new audition" do
