@@ -1,20 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Report, type: :model do
+
+
   let(:user) { FactoryBot.create(:user) }
-  let(:report) {
-    FactoryBot.create(:report,
-      audition:
-        FactoryBot.create(:audition,
-          category:
-            FactoryBot.create(:category),
-          user: user,
-          project: FactoryBot.create(:project,
-            user: user
-          )
-        )
-    )
-  }
+
+  let(:result) { FactoryBot.create(:result, name: "Complete") }
+  let(:category) {FactoryBot.create(:category)}
+  let(:project) {FactoryBot.create(:project, user: user)}
+
+  let(:audition) { FactoryBot.create(:audition, category: category, project: project, user: user) }
+
+
+  let(:report) { FactoryBot.create(:report, audition: audition )}
 
   it "is valid with valid attributes" do
     expect(report).to be_valid
