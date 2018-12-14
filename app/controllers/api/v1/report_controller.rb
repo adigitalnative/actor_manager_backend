@@ -15,6 +15,12 @@ class Api::V1::ReportController < ApplicationController
     end
   end
 
+  def destroy
+    report = @audition.report
+    report.destroy
+    render json: report, status: :accepted
+  end
+
   private
 
   def report_params

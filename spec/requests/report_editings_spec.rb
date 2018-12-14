@@ -42,7 +42,6 @@ RSpec.describe "Editing a report", type: :request do
         expect(body[:auditors]).to eq("Some other people you met but in the room")
       end
     end
-
-
+    
   end
 end
