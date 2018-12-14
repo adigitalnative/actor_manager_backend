@@ -5,13 +5,13 @@ RSpec.describe "Deleting an audition", type: :request do
     before do
       user = FactoryBot.create(:user)
       @jwt = JWT.encode({user_id: user.id}, 'the_secret')
-      project = FactoryBot.create(:project)
+      project = FactoryBot.create(:project, user: user)
       category = FactoryBot.create(:category)
       @audition_to_delete = FactoryBot.create(:audition, project: project, category: category, user: user)
-      @another_user_audition = FactoryBot.create(:audition, project: FactoryBot.create(:project),
+      @another_user_audition = FactoryBot.create(:audition, project: FactoryBot.create(:project, user: user),
         category: FactoryBot.create(:category), user: FactoryBot.create(:user))
       @audition_count = Audition.all.count
-      
+
       delete '/api/v1/auditions/' + @audition_to_delete.id.to_s,
         headers: {
           'Accept':'application/json',
@@ -46,7 +46,7 @@ RSpec.describe "Deleting an audition", type: :request do
     before do
       user = FactoryBot.create(:user)
       jwt = JWT.encode({user_id: user.id}, 'the_secret')
-      project = FactoryBot.create(:project)
+      project = FactoryBot.create(:project, user: user)
       category = FactoryBot.create(:category)
       @audition_to_delete = FactoryBot.create(:audition, project: project, category: category, user: user)
       @audition_to_delete_id = @audition_to_delete.id

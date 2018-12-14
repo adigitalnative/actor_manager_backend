@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Editing an audition", type: :request do
   before do
     @user = FactoryBot.create(:user)
-    project = FactoryBot.create(:project)
+    project = FactoryBot.create(:project, user: @user)
     category = FactoryBot.create(:category)
     @audition = FactoryBot.create(:audition, bring: "Something to bring",
       prepare: "Something to prepare", project: project, category: category,

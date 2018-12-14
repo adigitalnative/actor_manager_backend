@@ -1,7 +1,7 @@
 class Api::V1::ProjectsController < ApplicationController
 
   def index
-    render json: Project.all
+    render json: current_user.projects
   end
 
 end

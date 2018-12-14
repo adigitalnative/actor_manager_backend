@@ -21,4 +21,8 @@ RSpec.describe Project, type: :model do
     project.company_id = nil
     expect(project).to be_valid
   end
+
+  it "belongs to a user" do
+    expect(project).to respond_to(:user)
+  end
 end

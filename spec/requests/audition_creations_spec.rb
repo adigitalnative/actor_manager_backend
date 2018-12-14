@@ -5,7 +5,7 @@ RSpec.describe "AuditionCreations", type: :request do
     before do
       user = FactoryBot.create(:user)
       jwt = JWT.encode({user_id: user.id}, 'the_secret')
-      project = FactoryBot.create(:project)
+      project = FactoryBot.create(:project, user: user)
       category = FactoryBot.create(:category, name: "Foo")
       post '/api/v1/auditions',
         headers: {

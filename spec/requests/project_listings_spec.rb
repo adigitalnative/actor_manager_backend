@@ -5,7 +5,8 @@ RSpec.describe "Project Lists", type: :request do
     before do
       user = FactoryBot.create(:user)
       jwt = JWT.encode({user_id: user.id}, 'the_secret')
-      FactoryBot.create_list(:project, 10)
+      FactoryBot.create_list(:project, 10, user: user)
+      FactoryBot.create_list(:project, 10, user: FactoryBot.create(:user)) 
       get '/api/v1/projects',
       headers: {
         'Accept':'application/json',
@@ -17,7 +18,7 @@ RSpec.describe "Project Lists", type: :request do
       expect(response).to have_http_status(200)
     end
 
-    it "includes all the current projects" do
+    it "includes all the current user's projects" do
       body = JSON.parse(response.body, symbolize_names: true)
       expect(body.count).to eq(10)
     end

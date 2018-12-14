@@ -19,11 +19,11 @@ RSpec.describe "Viewing auditions", type: :request do
         jwt = JWT.encode({user_id: user.id}, 'the_secret')
         category = FactoryBot.create(:category, name: "Callback")
         @company = FactoryBot.create(:company, name: "A company")
-        @project = FactoryBot.create(:project, name: "A Project", company: @company)
+        @project = FactoryBot.create(:project, name: "A Project", company: @company, user: user)
         FactoryBot.create_list(:audition, 10, project: @project, category: category, user: user)
         @audition_to_find = FactoryBot.create(:audition, project: @project,
           bring: "The thing to bring", prepare: "The thing to prepare", category: category, user: user)
-        @audition_to_not_find = FactoryBot.create(:audition, project: FactoryBot.create(:project),
+        @audition_to_not_find = FactoryBot.create(:audition, project: FactoryBot.create(:project, user: FactoryBot.create(:user) ),
           bring: "Foo", prepare: "Foo", category: FactoryBot.create(:category), user: FactoryBot.create(:user))
 
         get '/api/v1/auditions',

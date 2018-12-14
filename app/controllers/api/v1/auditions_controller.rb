@@ -8,14 +8,17 @@ class Api::V1::AuditionsController < ApplicationController
     params["audition"]["user_id"] = current_user.id
     if params["audition"]["new_project_title"] && params["audition"]["new_company_title"]
       company = Company.create(name: params["audition"]["new_company_title"])
-      project = company.projects.create(name: params["audition"]["new_project_title"])
+      project = company.projects.create(name: params["audition"]["new_project_title"],
+        user: current_user)
       @audition = project.auditions.new(audition_params)
     elsif params["audition"]["new_project_title"] && params["audition"]["company_id"]
       company = Company.find(params["audition"]["company_id"])
-      project = company.projects.create(name: params["audition"]["new_project_title"])
+      project = company.projects.create(name: params["audition"]["new_project_title"],
+        user: current_user)
       @audition = project.auditions.new(audition_params)
     elsif params["audition"]["new_project_title"]
-      project = Project.create(name: params["audition"]["new_project_title"])
+      project = Project.create(name: params["audition"]["new_project_title"],
+        user: current_user)
       @audition = project.auditions.new(audition_params)
     else
       @audition = Audition.new(audition_params)

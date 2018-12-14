@@ -8,9 +8,11 @@
 
 jq = User.create(email: "jq@nativefoundry.com", password: "password",
   first_name: "Jacqueline", last_name: "Chenault")
+jane = User.create(email: 'jane@doe.com', password: 'password',
+  first_name: "Jane", last_name: "Doe")
 
 folger = Company.find_or_create_by(name: "Folger Shakespeare Library")
-project = Project.find_or_create_by(name: "King John", company: folger)
+project = Project.find_or_create_by(name: "King John", company: folger, user: jq)
 categories = Category.create([
   {name: "Open Call"},
   {name: "EPA"},
