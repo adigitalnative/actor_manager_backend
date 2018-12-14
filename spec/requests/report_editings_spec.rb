@@ -37,11 +37,11 @@ RSpec.describe "Editing a report", type: :request do
 
       it "returns JSON with the new audition" do
         body = JSON.parse(response.body, symbolize_names: true)
-        expect(body[:notes]).to eq("Some notes about the audition")
-        expect(body[:people]).to eq("People you met at the audition")
-        expect(body[:auditors]).to eq("Some other people you met but in the room")
+        expect(body[:report][:notes]).to eq("Some notes about the audition")
+        expect(body[:report][:people]).to eq("People you met at the audition")
+        expect(body[:report][:auditors]).to eq("Some other people you met but in the room")
       end
     end
-    
+
   end
 end

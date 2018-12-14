@@ -2,10 +2,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :auditions, only: [:index, :create, :update, :destroy] do
-        resources :report, only: [:create]
         patch '/report', to: 'report#update'
-        delete '/report', to: 'report#destroy'
       end
+
       resources :categories, only: [:index]
       resources :projects, only: [:index]
       resources :companies, only: [:index]
