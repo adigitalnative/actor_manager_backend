@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create]
       post '/login', to: 'auth#create'
       post '/authorize', to: 'auth#authorize_token'
+      get '/result_options', to: "report#result_options"
     end
   end
 end

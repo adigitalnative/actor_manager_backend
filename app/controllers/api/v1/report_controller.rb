@@ -1,24 +1,28 @@
 class Api::V1::ReportController < ApplicationController
 
-  before_action :set_audition
+  before_action :set_audition, except: [:result_options]
 
   def create
     if @audition.create_report(report_params)
-      render json: @audition, status: :created
+      render json: @audition, include: ['report', 'report.result'], status: :created
     end
   end
 
   def update
     report = @audition.report
     if report.update(report_params)
-      render json: @audition, status: :accepted
+      render json: @audition, include: ['report', 'report.result'], status: :accepted
     end
   end
 
   def destroy
     report = @audition.report
     report.destroy
-    render json: @audition, status: :accepted
+    render json: @audition, include: ['report', 'report.result'], status: :accepted
+  end
+
+  def result_options
+    render json: Result.all
   end
 
   private

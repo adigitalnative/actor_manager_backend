@@ -21,9 +21,9 @@ categories = Category.create([
   ])
 
 # Results
-not_cast = Result.new(name: "Not Cast")
-offered_role = Result.new(name: "Offered Role")
-did_not_accept = Result.new(name: "Offered Role, did not accept")
+not_cast = Result.find_or_create_by(name: "Not Cast")
+offered_role = Result.find_or_create_by(name: "Offered Role")
+declined = Result.find_or_create_by(name: "Declined Role")
 
 audition = Audition.find_or_create_by(
   project: project,
