@@ -11,7 +11,7 @@ jq = User.create(email: "jq@nativefoundry.com", password: "password",
 jane = User.create(email: 'jane@doe.com', password: 'password',
   first_name: "Jane", last_name: "Doe")
 
-folger = Company.find_or_create_by(name: "Folger Shakespeare Library")
+folger = Company.find_or_create_by(name: "Folger Shakespeare Library", user: jq)
 project = Project.find_or_create_by(name: "King John", company: folger, user: jq)
 categories = Category.create([
   {name: "Open Call"},
@@ -19,6 +19,11 @@ categories = Category.create([
   {name: "Invited Audition"},
   {name: "Callback"}
   ])
+
+# Results
+not_cast = Result.find_or_create_by(name: "Not Cast")
+offered_role = Result.find_or_create_by(name: "Offered Role")
+declined = Result.find_or_create_by(name: "Declined Role")
 
 audition = Audition.find_or_create_by(
   project: project,
