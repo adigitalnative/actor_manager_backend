@@ -16,7 +16,7 @@ RSpec.describe "User creation", type: :request do
                 }
       end
 
-      it "returns apropriate status code" do
+      it "returns appropriate status code" do 
         expect(response).to have_http_status(201)
       end
 

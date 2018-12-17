@@ -41,4 +41,8 @@ RSpec.describe User, type: :model do
     expect(user).to respond_to(:companies)
   end
 
+  it "has many book_items" do
+    expect(user).to respond_to(:book_items)
+  end
+
 end

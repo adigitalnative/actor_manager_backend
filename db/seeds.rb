@@ -20,6 +20,8 @@ categories = Category.create([
   {name: "Callback"}
   ])
 
+BookItem.find_or_create_by(title: "King John", role: "Constance", user: jq)
+
 # Results
 not_cast = Result.find_or_create_by(name: "Not Cast")
 offered_role = Result.find_or_create_by(name: "Offered Role")
