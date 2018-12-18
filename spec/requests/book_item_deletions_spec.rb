@@ -9,6 +9,7 @@ RSpec.describe "Deleting book items", type: :request do
     before do
       @book_to_delete = FactoryBot.create(:book_item, user: user)
       @book_item_count = BookItem.all.count
+      @book_to_delete.auditions << FactoryBot.create(:audition, user: user, project: FactoryBot.create(:project, user: user), category: FactoryBot.create(:category))
     end
 
 

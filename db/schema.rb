@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_17_204449) do
+ActiveRecord::Schema.define(version: 2018_12_18_155755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "audition_pieces", force: :cascade do |t|
+    t.bigint "book_item_id"
+    t.bigint "audition_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["audition_id"], name: "index_audition_pieces_on_audition_id"
+    t.index ["book_item_id"], name: "index_audition_pieces_on_book_item_id"
+  end
 
   create_table "auditions", force: :cascade do |t|
     t.text "bring"
@@ -34,6 +43,7 @@ ActiveRecord::Schema.define(version: 2018_12_17_204449) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "author"
     t.index ["user_id"], name: "index_book_items_on_user_id"
   end
 
@@ -88,6 +98,8 @@ ActiveRecord::Schema.define(version: 2018_12_17_204449) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "audition_pieces", "auditions"
+  add_foreign_key "audition_pieces", "book_items"
   add_foreign_key "auditions", "categories"
   add_foreign_key "auditions", "projects"
   add_foreign_key "auditions", "users"

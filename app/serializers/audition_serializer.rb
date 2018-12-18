@@ -1,6 +1,7 @@
 class AuditionSerializer < ActiveModel::Serializer
   attributes :id, :bring, :prepare, :project, :company, :category
   has_one :report
+  has_many :pieces
 
   def project
     object.project.name

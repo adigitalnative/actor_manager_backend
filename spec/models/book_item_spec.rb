@@ -16,4 +16,8 @@ RSpec.describe BookItem, type: :model do
     book_item.user_id = nil
     expect(book_item).to_not be_valid
   end
+
+  it "can belong to many auditions" do
+    expect(book_item).to respond_to(:auditions)
+  end
 end

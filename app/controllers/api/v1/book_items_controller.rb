@@ -35,7 +35,7 @@ class Api::V1::BookItemsController < ApplicationController
   private
 
   def book_item_params
-    params.require(:book_item).permit(:title, :role, :user_id)
+    params.require(:book_item).permit(:title, :role, :author, :user_id)
   end
 
   def set_book_item

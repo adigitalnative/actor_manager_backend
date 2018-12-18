@@ -3,5 +3,6 @@ FactoryBot.define do
     title { "MyString" }
     role { "MyString" }
     user { FactoryBot.build_stubbed(:user) }
+    author { Faker::HarryPotter.character }
   end
 end
