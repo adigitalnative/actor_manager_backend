@@ -11,7 +11,7 @@ class Api::V1::ReportController < ApplicationController
         Project.find(project_id).update(result_id: params[:report][:result_id])
       end
 
-      render json: @audition, include: ['report', 'project', 'project.result'], status: :accepted
+      render json: @audition, status: :accepted
     end
   end
 
