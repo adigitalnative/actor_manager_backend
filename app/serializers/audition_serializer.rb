@@ -1,5 +1,5 @@
 class AuditionSerializer < ActiveModel::Serializer
-  attributes :id, :bring, :prepare, :project, :company, :category
+  attributes :id, :bring, :prepare, :project, :company, :category, :result
   has_one :report
   has_many :pieces
 
@@ -15,7 +15,16 @@ class AuditionSerializer < ActiveModel::Serializer
     end
   end
 
+  def result
+    if object.project.result
+      object.project.result
+    else
+      {}
+    end
+  end
+
   def category
     object.category.name
   end
+
 end

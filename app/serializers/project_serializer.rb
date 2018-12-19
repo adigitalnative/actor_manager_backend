@@ -1,4 +1,4 @@
 class ProjectSerializer < ActiveModel::Serializer
-  attributes :id, :name, :report
+  attributes :id, :name, :result
   belongs_to :company
 end
