@@ -16,19 +16,23 @@ class Api::V1::BookItemsController < ApplicationController
   end
 
   def update
-    if @book_item.update(book_item_params)
-      render json: @book_item, status: :accepted
+    if book_item_is_restricted
+      render json: {error: true, message: "Can't change this book item."}, status: :not_acceptable
     else
-      render json: {error: true, message: "Invalid book item"}, status: :not_acceptable
+      if @book_item.update(book_item_params)
+        render json: @book_item, status: :accepted
+      else
+        render json: {error: true, message: "Invalid book item"}, status: :not_acceptable
+      end
     end
   end
 
   def destroy
-    if @book_item
+    if @book_item && !book_item_is_restricted
       @book_item.destroy
       render json: @book_item, status: :accepted
     else
-      render json: {error: true, message: "Could not delete book item"}, status: :not_acceptable
+      render json: {error: true, message: "Could not delete this book item"}, status: :not_acceptable
     end
   end
 
@@ -43,6 +47,14 @@ class Api::V1::BookItemsController < ApplicationController
 
     if @book_item.user != current_user
       @book_item = nil
+    end
+  end
+
+  def book_item_is_restricted
+    if @book_item.title == "Prepared Sides"
+      return true
+    else
+      return false
     end
   end
 

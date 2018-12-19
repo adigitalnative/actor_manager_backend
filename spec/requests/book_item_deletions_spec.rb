@@ -65,5 +65,26 @@ RSpec.describe "Deleting book items", type: :request do
         expect(response).to have_http_status(401)
       end
     end
+
+    context "when the book item is the 'prepared sides' item" do
+      before do
+        non_deletable_book = user.book_items.find_by_title("Prepared Sides")
+        delete '/api/v1/book/' + non_deletable_book.id.to_s,
+          headers: {
+            'Accept':'application/json',
+            'Authorization':"Bearer #{jwt}"
+           }
+      end
+
+      it "returns a not accepted" do
+        expect(response).to have_http_status(406)
+      end
+
+      it "has a useful error message" do
+        body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(body[:message]).to eq("Could not delete this book item")
+      end
+    end
   end
 end

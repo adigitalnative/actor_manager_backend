@@ -55,6 +55,34 @@ RSpec.describe "Editing Book Items", type: :request do
       end
     end
 
+    context "editing the 'prepared sides' book item" do
+      before do
+        user = FactoryBot.create(:user)
+        jwt = JWT.encode({user_id: user.id}, 'the_secret')
+        book_to_edit = user.book_items.find_by_title("Prepared Sides")
+        patch '/api/v1/book/' + book_to_edit.id.to_s,
+          headers: {
+            'Accept':'application/json',
+            'Authorization':"Bearer #{jwt}"
+          },
+          params: {
+            book_item: {
+              title: "New Book Item Title",
+              role: "New Role in the book item"
+            }
+          }
+        @body = JSON.parse(response.body, symbolize_names: true)
+      end
+
+      it "returns not acceptable" do
+        expect(response).to have_http_status(406)
+      end
+
+      it "returns a useful error message" do
+        expect(@body[:message]).to eq("Can't change this book item.")
+      end
+    end
+
     context "when the user token does not exist or is invalid" do
       before do
         user = FactoryBot.create(:user)
