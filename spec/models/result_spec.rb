@@ -12,7 +12,12 @@ RSpec.describe Result, type: :model do
     expect(result).to_not be_valid
   end
 
-  it "has reports" do
-    expect(result).to respond_to(:reports)
+  it "does not have reports" do
+    expect(result).to_not respond_to(:reports)
+  end
+
+  it "has projects" do
+
+    expect(result).to respond_to(:projects)
   end
 end

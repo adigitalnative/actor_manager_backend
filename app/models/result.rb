@@ -1,6 +1,6 @@
 class Result < ApplicationRecord
 
-  has_many :reports
+  has_many :projects
 
   validates :name, presence: true
 

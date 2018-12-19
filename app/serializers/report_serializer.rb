@@ -1,3 +1,3 @@
 class ReportSerializer < ActiveModel::Serializer
-  attributes :id, :notes, :people, :auditors, :result
+  attributes :id, :notes, :people, :auditors
 end

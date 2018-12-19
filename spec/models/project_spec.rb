@@ -25,4 +25,8 @@ RSpec.describe Project, type: :model do
   it "belongs to a user" do
     expect(project).to respond_to(:user)
   end
+
+  it "can have a result" do
+    expect(project).to respond_to(:result)
+  end
 end
