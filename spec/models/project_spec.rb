@@ -29,4 +29,40 @@ RSpec.describe Project, type: :model do
   it "can have a result" do
     expect(project).to respond_to(:result)
   end
+
+  context(".percent_booked(user_id)") do
+    let(:user) { FactoryBot.create(:user) }
+    let(:booked_result) { FactoryBot.create(:result, booked: true)}
+    let(:unbooked_result) { FactoryBot.create(:result, booked: false)}
+
+    context "when there are no projects" do
+      it "returns 0" do
+        expect(Project.percent_booked(user)).to eq(0)
+      end
+    end
+
+    context "when some projects are booked" do
+      before do
+        FactoryBot.create(:project, result: booked_result, user: user)
+        FactoryBot.create(:project, result: unbooked_result, user:user)
+      end
+
+      it "returns the appropriate value" do
+        expect(Project.percent_booked(user)).to eq(50)
+      end
+
+    end
+
+    context "when all projects were booked" do
+      before do
+        FactoryBot.create(:project, result: booked_result, user: user)
+        FactoryBot.create(:project, result: booked_result, user: user)
+        FactoryBot.create(:project, result: booked_result, user: user)
+      end
+
+      it "returns the appropriate value" do
+        expect(Project.percent_booked(user)).to eq(100)
+      end
+    end
+  end
 end

@@ -20,4 +20,9 @@ RSpec.describe Result, type: :model do
 
     expect(result).to respond_to(:projects)
   end
+
+  it "is invalid without a booked boolean" do
+    result.booked = nil
+    expect(result).to_not be_valid
+  end
 end

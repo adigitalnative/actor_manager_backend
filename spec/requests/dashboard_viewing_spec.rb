@@ -9,6 +9,7 @@ RSpec.describe "Dashboard request", type: :request do
         project_one = FactoryBot.create(:project, user: user)
         project_two = FactoryBot.create(:project, user: user)
         project_three = FactoryBot.create(:project, user: user)
+        project_four = FactoryBot.create(:project, user: user)
 
         get '/api/v1/dashboard',
         headers: {
@@ -26,7 +27,7 @@ RSpec.describe "Dashboard request", type: :request do
         expect(@body[:projects].class).to eq(Array)
       end
       it "includes the right number of projects" do
-        expect(@body[:projects].count).to eq(3)
+        expect(@body[:projects].count).to eq(4)
       end
 
       it "includes a projects company" do
@@ -38,7 +39,10 @@ RSpec.describe "Dashboard request", type: :request do
       end
 
       # As needed for dashboard display
-      it "returns % of auditions booked"
+      it "returns % of projects booked" do
+        expect(@body.keys).to include(:percent_booked)
+      end
+
       it "returns an array of auditions/month"
       it "returns an array of auditions/week"
       it "returns an array of auditions/year"

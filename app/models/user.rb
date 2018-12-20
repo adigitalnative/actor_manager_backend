@@ -17,4 +17,8 @@ class User < ApplicationRecord
     book_items.create(title: "Prepared Sides")
   end
 
+  def percent_booked
+    Project.percent_booked(id)
+  end
+
 end
