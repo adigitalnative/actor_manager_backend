@@ -1,24 +1,27 @@
-# README
+# Actio: Actor Career Mangement (Backend)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup & Running the App
 
-Things you may want to cover:
+### Database
 
-* Ruby version
+Make sure postgres is running with the standard/default config, or adjust /config files to account for your system.
 
-* System dependencies
+Setup is fairly standard Ruby/Rails. There is a robust seed with some necessary defaults, so you should use db:setup to get things going. It will create a default user and password, but you can also create your own users.
 
-* Configuration
+Setup the app, create and seed the db with:
 
-* Database creation
+`bundle install` and `rails db:setup`
 
-* Database initialization
+After that, you can always start up the server with:
 
-* How to run the test suite
+`rails s -p 3001`
 
-* Services (job queues, cache servers, search engines, etc.)
+(The app can run on any port you like, but the matching frontend will look for localhost:3001)
 
-* Deployment instructions
+## Testing
 
-* ...
+There is a relatively robust rspec test suite. Use `rspec` to run the specs.
+
+## Credits
+
+Created by Jacqueline Chenault (@adigitalnative)
