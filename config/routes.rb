@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :projects, only: [:index]
       resources :companies, only: [:index]
       resources :users, only: [:create]
+      resource :dashboard, only: [:show]
 
       get 'book', to: 'book_items#index'
       post 'book', to: 'book_items#create'
