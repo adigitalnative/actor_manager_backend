@@ -41,4 +41,12 @@ RSpec.describe User, type: :model do
     expect(user).to respond_to(:companies)
   end
 
+  it "has many book_items" do
+    expect(user).to respond_to(:book_items)
+  end
+
+  it "can report it's percent of booked projects" do
+    expect(user).to respond_to(:percent_booked)
+  end
+
 end

@@ -23,7 +23,7 @@ class Api::V1::AuditionsController < ApplicationController
     else
       @audition = Audition.new(audition_params)
     end
-
+    
     if @audition.valid?
       @audition.save
       render json: @audition, status: :created
@@ -70,7 +70,7 @@ class Api::V1::AuditionsController < ApplicationController
   private
 
   def audition_params
-    params.require(:audition).permit(:bring, :prepare, :project_id, :category_id, :user_id)
+    params.require(:audition).permit(:bring, :prepare, :project_id, :category_id, :user_id, book_item_ids: [])
   end
 
 end

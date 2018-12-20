@@ -8,6 +8,7 @@ RSpec.describe "Deleting an audition", type: :request do
       project = FactoryBot.create(:project, user: user)
       category = FactoryBot.create(:category)
       @audition_to_delete = FactoryBot.create(:audition, project: project, category: category, user: user)
+      @audition_to_delete.pieces << FactoryBot.create(:book_item, user: user)
       @another_user_audition = FactoryBot.create(:audition, project: FactoryBot.create(:project, user: user),
         category: FactoryBot.create(:category), user: FactoryBot.create(:user))
       @audition_count = Audition.all.count

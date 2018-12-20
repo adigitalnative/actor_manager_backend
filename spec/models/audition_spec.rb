@@ -36,4 +36,12 @@ RSpec.describe Audition, type: :model do
   it "has a report" do
     expect(audition).to respond_to(:report)
   end
+
+  it "can have many pieces" do
+    expect(audition).to respond_to(:pieces)
+  end
+
+  it "can have a date & time" do
+    expect(audition).to respond_to(:date_and_time)
+  end
 end
