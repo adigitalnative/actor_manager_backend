@@ -44,4 +44,65 @@ RSpec.describe Audition, type: :model do
   it "can have a date & time" do
     expect(audition).to respond_to(:date_and_time)
   end
+
+  context ".percent_reported" do
+    let(:category) { FactoryBot.create(:category) }
+    let(:project) { FactoryBot.create(:project) }
+
+    before do
+      @user = FactoryBot.create(:user)
+      @category = FactoryBot.create(:category)
+      @project = FactoryBot.create(:project, user: @user)
+    end
+
+    context "when there are no auditions" do
+      it "returns 'N/A'" do
+        expect(Audition.percent_reported(@user)).to eq('N/A')
+      end
+    end
+
+    context "when there are auditions but no reports" do
+      before do
+        FactoryBot.create(:audition, user: @user, category: @category, project: @project)
+      end
+
+      it "returns 0" do
+        expect(Audition.percent_reported(@user)).to eq(0)
+      end
+    end
+
+    context "when some auditions have reports" do
+
+      before do
+        audit_one = FactoryBot.create(:audition, user: @user, category: @category, project: @project)
+        audit_one.report.update(people: "something to make it a thing")
+        audit_two = FactoryBot.create(:audition, user: @user, category: @category, project: @project)
+        audit_two.report.update(people: "something to make it a thing")
+        audit_three = FactoryBot.create(:audition, user: @user, category: @category, project: @project)
+        audit_for = FactoryBot.create(:audition, user: @user, category: @category, project: @project)
+      end
+
+      it "returns the appropriate percentage" do
+        expect(Audition.percent_reported(@user)).to eq(50)
+      end
+    end
+
+    context "when all auditions have reports" do
+      before do
+        audit_one = FactoryBot.create(:audition, user: @user, category: @category, project: @project)
+        audit_one.report.update(people: "something to make it a thing")
+        audit_two = FactoryBot.create(:audition, user: @user, category: @category, project: @project)
+        audit_two.report.update(people: "something to make it a thing")
+        audit_three = FactoryBot.create(:audition, user: @user, category: @category, project: @project)
+        audit_three.report.update(people: "something to make it a thing")
+        audit_for = FactoryBot.create(:audition, user: @user, category: @category, project: @project)
+        audit_for.report.update(people: "something to make it a thing")
+      end
+
+      it "returns 100" do
+        expect(Audition.percent_reported(@user)).to eq(100)
+      end
+    end
+
+  end
 end

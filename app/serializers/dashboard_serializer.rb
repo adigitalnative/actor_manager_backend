@@ -1,7 +1,7 @@
 class DashboardSerializer < ActiveModel::Serializer
   # object is a user class
 
-  attributes :percent_booked, :project_count, :audition_count
+  attributes :percent_booked, :project_count, :audition_count, :percent_reported, :potential_bookings
 
   has_many(:projects, serializer: ProjectsSerializer)
 

@@ -36,8 +36,8 @@ RSpec.describe Project, type: :model do
     let(:unbooked_result) { FactoryBot.create(:result, booked: false)}
 
     context "when there are no projects" do
-      it "returns 0" do
-        expect(Project.percent_booked(user)).to eq(0)
+      it "returns 'N/A'" do
+        expect(Project.percent_booked(user)).to eq('N/A')
       end
     end
 
@@ -48,6 +48,11 @@ RSpec.describe Project, type: :model do
       end
 
       it "returns the appropriate value" do
+        expect(Project.percent_booked(user)).to eq(50)
+      end
+
+      it "doesn't include projects that don't have a result set" do
+        FactoryBot.create(:project, user: user)
         expect(Project.percent_booked(user)).to eq(50)
       end
 

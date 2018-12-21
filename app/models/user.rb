@@ -21,4 +21,12 @@ class User < ApplicationRecord
     Project.percent_booked(id)
   end
 
+  def percent_reported
+    Audition.percent_reported(self)
+  end
+
+  def potential_bookings
+    projects.where(result: nil).count
+  end
+
 end

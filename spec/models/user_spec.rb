@@ -49,4 +49,12 @@ RSpec.describe User, type: :model do
     expect(user).to respond_to(:percent_booked)
   end
 
+  it "can report it's percent of reported projects" do
+    expect(user).to respond_to(:percent_reported)
+  end
+
+  it "can report how many projects are waiting for a response" do
+    expect(user).to respond_to(:potential_bookings)
+  end
+
 end

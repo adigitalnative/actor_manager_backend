@@ -18,23 +18,26 @@ class Project < ApplicationRecord
     amount.to_f / total.to_f * 100
   end
 
-
   def self.percent_booked(user_id)
     users_projects = where(user_id: user_id)
     booked = 0
+    reported = 0
 
     users_projects.each do |project|
       if project.result && project.result.booked?
         booked += 1
+        reported += 1
+      elsif project.result
+        reported += 1
       end
     end
 
     if booked == 0
-      return 0
-    elsif booked == users_projects.count
+      return "N/A"
+    elsif booked == reported
       return 100
     else
-      find_percentage(booked, users_projects.count)
+      find_percentage(booked, reported)
     end
   end
 end
