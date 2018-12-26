@@ -12,6 +12,15 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def update
+    # debugger
+    if @user.update(user_params)
+      render json: { user: @user }, status: :accepted
+    else
+      render json: {error: true, message: "Invalid entry"}, status: :not_acceptable
+    end
+  end
+
   def user_params
     params.require(:user).permit(:email, :password, :first_name, :last_name)
   end

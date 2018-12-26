@@ -34,6 +34,9 @@ gem 'active_model_serializers'
 # Use JWT for JSON Web Tokens
 gem 'jwt'
 
+# Use CUSTOM Thespis gem to scrape sites for auditions
+gem 'thespis', path: '../thespis'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

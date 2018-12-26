@@ -9,12 +9,14 @@ Rails.application.routes.draw do
       resources :projects, only: [:index]
       resources :companies, only: [:index]
       resources :users, only: [:create]
+      patch 'users', to: 'users#update'
       resource :dashboard, only: [:show]
 
       get 'book', to: 'book_items#index'
       post 'book', to: 'book_items#create'
       patch 'book/:id', to: 'book_items#update'
       delete 'book/:id', to: 'book_items#destroy'
+
 
       post '/login', to: 'auth#create'
       post '/authorize', to: 'auth#authorize_token'

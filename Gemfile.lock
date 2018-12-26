@@ -1,3 +1,9 @@
+PATH
+  remote: ../thespis
+  specs:
+    thespis (0.3.0)
+      nokogiri
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -184,6 +190,7 @@ DEPENDENCIES
   rspec-rails (~> 3.8)
   spring
   spring-watcher-listen (~> 2.0.0)
+  thespis!
   tzinfo-data
 
 RUBY VERSION
