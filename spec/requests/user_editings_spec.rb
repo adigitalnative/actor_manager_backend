@@ -5,6 +5,9 @@ RSpec.describe "Editing the current user", type: :request do
     before do
       user = FactoryBot.create(:user, first_name: "Jane", last_name: "Doe")
       @jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      @dc = State.create(name: "DC")
+      @md = State.create(name: "MD")
+      @va = State.create(name: "VA")
     end
     context "with valid input" do
       before do
@@ -16,7 +19,8 @@ RSpec.describe "Editing the current user", type: :request do
           params: {
             user: {
               first_name: "Foo",
-              last_name: "Hah"
+              last_name: "Hah",
+              audition_states: ["DC", "MD", "VA"]
             }
           }
         @body = JSON.parse(response.body, symbolize_names: true)
@@ -30,6 +34,10 @@ RSpec.describe "Editing the current user", type: :request do
         expect(@body[:user][:first_name]).to eq("Foo")
         expect(@body[:user][:last_name]).to eq("Hah")
       end
+
+      it "returns a user with the proper audition states" do
+        expect(@body[:user][:states].count).to eq(3)
+      end
     end
 
     context "with invalid input" do
@@ -42,7 +50,8 @@ RSpec.describe "Editing the current user", type: :request do
           params: {
             user: {
               first_name: "",
-              last_name: ""
+              last_name: "",
+              audition_states: []
             }
           }
         @body = JSON.parse(response.body, symbolize_names: true)

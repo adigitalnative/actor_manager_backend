@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :projects
   has_many :companies
   has_many :book_items
+  has_many :search_states
+  has_many :states, through: :search_states
 
   validates :first_name, presence: true
   validates :last_name, presence: true

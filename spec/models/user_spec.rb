@@ -57,4 +57,8 @@ RSpec.describe User, type: :model do
     expect(user).to respond_to(:potential_bookings)
   end
 
+  it "can have many states" do
+    expect(user).to respond_to(:states)
+  end
+
 end
