@@ -6,8 +6,8 @@ Rails.application.routes.draw do
       end
 
       resources :categories, only: [:index]
-      resources :projects, only: [:index]
-      resources :companies, only: [:index]
+      resources :projects, only: [:index, :update]
+      resources :companies, only: [:index, :update]
       resources :users, only: [:create]
       patch 'users', to: 'users#update'
       resource :dashboard, only: [:show]

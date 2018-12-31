@@ -4,4 +4,19 @@ class Api::V1::CompaniesController < ApplicationController
     render json: current_user.companies
   end
 
+  def update
+    @company = current_user.companies.find(params[:id])
+    if @company.update(company_params)
+      render json: @company, status: :accepted
+    else
+      render json: {error: true, message: "Cannot update Company"}, status: :not_acceptable
+    end
+  end
+
+  private
+
+  def company_params
+    params.require(:company).permit(:name)
+  end
+
 end
