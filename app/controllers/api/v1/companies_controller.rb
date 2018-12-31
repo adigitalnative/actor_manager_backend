@@ -1,7 +1,7 @@
 class Api::V1::CompaniesController < ApplicationController
 
   def index
-    render json: current_user.companies
+    render json: current_user.companies.order(:name)
   end
 
   def update

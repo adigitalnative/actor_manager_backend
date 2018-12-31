@@ -12,4 +12,8 @@ class DashboardSerializer < ActiveModel::Serializer
   def audition_count
     object.auditions.count
   end
+
+  def projects
+    object.projects.order(:name)
+  end
 end

@@ -3,7 +3,7 @@ class Api::V1::BookItemsController < ApplicationController
   before_action :set_book_item, only: [:update, :destroy]
 
   def index
-    render json: current_user.book_items
+    render json: current_user.book_items.order(:id)
   end
 
   def create

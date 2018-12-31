@@ -1,7 +1,7 @@
 class Api::V1::AuditionsController < ApplicationController
 
   def index
-    render json: current_user.auditions
+    render json: current_user.auditions.order(:date_and_time, :id)
   end
 
   def create
@@ -23,7 +23,7 @@ class Api::V1::AuditionsController < ApplicationController
     else
       @audition = Audition.new(audition_params)
     end
-    
+
     if @audition.valid?
       @audition.save
       render json: @audition, status: :created
