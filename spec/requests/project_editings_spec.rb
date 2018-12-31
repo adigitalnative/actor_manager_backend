@@ -8,6 +8,7 @@ RSpec.describe "Editing a project", type: :request do
         @jwt = JWT.encode({user_id: @user.id}, 'the_secret')
         @company = FactoryBot.create(:company, user: @user, name: "A Company")
         @project = FactoryBot.create(:project, company: @company, user: @user, name: "A project")
+        @result = FactoryBot.create(:result)
       end
 
       context "with valid inputs" do
@@ -20,6 +21,7 @@ RSpec.describe "Editing a project", type: :request do
             params: {
               project: {
                 name: "New Project Name",
+                result_id: @result.id
               }
             }
           @body = JSON.parse(response.body, symbolize_names: true)
@@ -27,6 +29,10 @@ RSpec.describe "Editing a project", type: :request do
 
         it "returns a 202 Accepted" do
           expect(response).to have_http_status(202)
+        end
+
+        it "sets the project's result appropriately" do
+          expect(Project.find(@project.id).result).to eq(@result)
         end
       end
 

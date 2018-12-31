@@ -14,9 +14,9 @@ callback = Category.find_or_create_by(name: "Callback")
 
 # Make Results
 not_cast = Result.find_or_create_by(name: "Not Cast")
-offered_role = Result.find_or_create_by(name: "Offered Role")
-accepted_role = Result.find_or_create_by(name: "Accepted Role")
-declined = Result.find_or_create_by(name: "Declined Role")
+offered_role = Result.find_or_create_by(name: "Offered Role", booked: true)
+accepted_role = Result.find_or_create_by(name: "Accepted Role", booked: true)
+declined = Result.find_or_create_by(name: "Declined Role", booked: true)
 
 # Build States
 states = State.create([
