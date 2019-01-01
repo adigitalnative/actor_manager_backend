@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   after_create :create_sides_book_item
+
   after_save :mark_states_for_search
 
   has_many :auditions
@@ -34,13 +35,10 @@ class User < ApplicationRecord
 
   # Set search: true for any states associated with this user.
   # TODO: Scrape for new opportunities for any new states
+  # TODO: Not specc'd for the moment. Needs specs
   def mark_states_for_search
-    states_to_update = self.states.where(search: false)
-
-    # TODO: Is there a way to update multiple records with one DB hit?
-    states_to_update.each do |state|
-      state.update(search: true)
-    end
+    states = self.states.where(search: false)
+    states.update_all(search: true)
 
     # Fire special search for new state's auditions from here
   end

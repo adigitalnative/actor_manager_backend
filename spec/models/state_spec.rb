@@ -22,6 +22,10 @@ RSpec.describe State, type: :model do
     expect(stubbed_state).to_not be_valid
   end
 
+  it "has users" do
+    expect(stubbed_state).to respond_to(:users)
+  end
+
   # Having an issue, wifi is out so debugging needs to wait for wifi
   context ".search?" do
     xit "can be true" do
@@ -60,8 +64,19 @@ RSpec.describe State, type: :model do
         @state_one.update(search: true)
         @state_two.update(search: true)
         @state_three.update(search: true)
-        @result = State.to_scrape
 
+        @state_with_user_one = FactoryBot.create(:state, search: true, name: "AA")
+        @state_with_user_two = FactoryBot.create(:state, search: true, name: "AB")
+        @state_wo_user = FactoryBot.create(:state, search: true, name: "AC")
+        user = FactoryBot.create(:user)
+        user.states << @state_one
+        user.states << @state_two
+        user.states << @state_three
+
+        user.states << @state_with_user_one
+        user.states << @state_with_user_two
+        
+        @result = State.to_scrape
       end
 
       it "returns an array of those states" do
@@ -73,6 +88,33 @@ RSpec.describe State, type: :model do
       it "doesn't include other states" do
         expect(@result).to_not include(@state_four)
       end
+
+      it "cleans up states w/o a user" do
+        State.to_scrape
+        expect(State.find(@state_wo_user.id).search).to eq(false)
+      end
     end
   end
+
+  # context "#clean_dead_search_states" do
+  #   before do
+  #     @state_with_user_one = FactoryBot.create(:state, search: true, name: "AA")
+  #     @state_with_user_two = FactoryBot.create(:state, search: true, name: "AB")
+  #     @state_wo_user = FactoryBot.create(:state, search: true, name: "AC")
+  #     user = FactoryBot.create(:user)
+  #     user.states << @state_with_user_one
+  #     user.states << @state_with_user_two
+  #   end
+  #
+  #   it "sets any states w/o a user to search: false" do
+  #     State.clean_dead_search_states
+  #     expect(State.find(@state_wo_user.id).search).to eq(false)
+  #   end
+  #
+  #   it "leaves any states with a user as search: true" do
+  #     states_to_scrape = State.to_scrape
+  #     expect(states_to_scrape).to include(@state_with_user_one)
+  #     expect(states_to_scrape).to include(@state_with_user_two)
+  #   end
+  # end
 end
