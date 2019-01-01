@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_27_174850) do
+ActiveRecord::Schema.define(version: 2019_01_01_132657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,18 @@ ActiveRecord::Schema.define(version: 2018_12_27_174850) do
     t.index ["user_id"], name: "index_companies_on_user_id"
   end
 
+  create_table "opportunities", force: :cascade do |t|
+    t.string "source"
+    t.string "title"
+    t.bigint "company_id"
+    t.string "url"
+    t.bigint "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_opportunities_on_company_id"
+    t.index ["state_id"], name: "index_opportunities_on_state_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.bigint "company_id"
@@ -104,6 +116,7 @@ ActiveRecord::Schema.define(version: 2018_12_27_174850) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "search", default: false, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -122,6 +135,8 @@ ActiveRecord::Schema.define(version: 2018_12_27_174850) do
   add_foreign_key "auditions", "users"
   add_foreign_key "book_items", "users"
   add_foreign_key "companies", "users"
+  add_foreign_key "opportunities", "companies"
+  add_foreign_key "opportunities", "states"
   add_foreign_key "projects", "companies"
   add_foreign_key "projects", "results"
   add_foreign_key "projects", "users"
