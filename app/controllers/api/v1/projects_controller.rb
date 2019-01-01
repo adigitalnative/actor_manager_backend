@@ -13,6 +13,15 @@ class Api::V1::ProjectsController < ApplicationController
     end
   end
 
+  def dashboard_update
+    project = current_user.projects.find(params[:id])
+    if project.update(project_params)
+      render json: current_user, serializer: DashboardSerializer, include: ['projects', 'projects.auditions', 'projects.auditions.report','projects.company', 'projects.result'], status: :accepted
+    else
+      render json: {error: true, message: "Project could not be updated"}, status: :not_acceptable
+    end
+  end
+
   private
 
   def project_params

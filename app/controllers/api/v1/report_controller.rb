@@ -19,6 +19,15 @@ class Api::V1::ReportController < ApplicationController
     render json: Result.all
   end
 
+  def dashboard_update
+    report = @audition.report
+    if report.update(report_params)
+      render json: current_user, serializer: DashboardSerializer, include: ['projects', 'projects.auditions', 'projects.auditions.report','projects.company', 'projects.result'], status: :accepted
+    else
+      render json: {error: true, message: "Could not update report"}, status: :not_accepted
+    end
+  end
+
   private
 
   def report_params

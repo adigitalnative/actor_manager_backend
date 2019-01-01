@@ -1,5 +1,5 @@
 class DashboardSerializer::ProjectsSerializer::AuditionsSerializer < ActiveModel::Serializer
-  attributes :id, :date, :category
+  attributes :id, :date, :category, :project_name
 
   has_one :report
 
@@ -13,5 +13,9 @@ class DashboardSerializer::ProjectsSerializer::AuditionsSerializer < ActiveModel
     else
       nil
     end
+  end
+
+  def project_name
+    object.project.name
   end
 end
