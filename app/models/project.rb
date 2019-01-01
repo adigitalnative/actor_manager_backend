@@ -15,7 +15,7 @@ class Project < ApplicationRecord
 # 1.percent_of 10    # => 10.0  (%)
 
   def self.find_percentage(amount, total)
-    amount.to_f / total.to_f * 100
+    (amount.to_f / total.to_f * 100).to_i
   end
 
   def self.percent_booked(user_id)
