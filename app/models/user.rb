@@ -38,8 +38,9 @@ class User < ApplicationRecord
   # TODO: Scrape for new opportunities for any new states
   # TODO: Not specc'd for the moment. Needs specs
   def mark_states_for_search
-    states = self.states.where(search: false)
-    states.update_all(search: true)
+    new_states = self.states.where(search: false)
+    Opportunity.source_opportunities(new_states.map {|s| s.name})
+    new_states.update_all(search: true)
 
     # Fire special search for new state's auditions from here
   end

@@ -11,6 +11,10 @@ class Opportunity < ApplicationRecord
   def self.source_global_opportunities
     states = State.to_scrape.map {|state| state.name }
 
+    self.source_opportunities(states)
+  end
+
+  def self.source_opportunities(states)
     opportunities = Thespis::Runner.search(states)
     opportunities.each do |opportunity|
       state = State.find_by_name(opportunity[:state])
