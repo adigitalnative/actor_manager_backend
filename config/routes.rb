@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       resources :categories, only: [:index]
       resources :projects, only: [:index, :update]
       resources :companies, only: [:index, :update]
-      resources :opportunities, only: [:index]
+      resources :opportunities, only: [:index] do
+        patch '/archive', to: 'opportunities#toggle_archived'
+      end
 
       resources :users, only: [:create]
       patch 'users', to: 'users#update'
