@@ -3,6 +3,8 @@ class Audition < ApplicationRecord
   belongs_to :project
   belongs_to :category
   belongs_to :user
+  belongs_to :lead, optional: true
+
   has_one :report, dependent: :destroy
   has_many :audition_pieces, dependent: :destroy
   has_many :book_items, through: :audition_pieces

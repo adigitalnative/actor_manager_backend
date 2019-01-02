@@ -8,8 +8,14 @@ Rails.application.routes.draw do
       resources :categories, only: [:index]
       resources :projects, only: [:index, :update]
       resources :companies, only: [:index, :update]
+      resources :opportunities, only: [:index] do
+        patch '/archive', to: 'opportunities#toggle_archived'
+        post '/audition', to: 'auditions#create_from_opportunity'
+      end
+
       resources :users, only: [:create]
       patch 'users', to: 'users#update'
+
       resource :dashboard, only: [:show] do
         patch 'auditions/:audition_id/report', to: 'report#dashboard_update'
         patch 'projects/:id', to: 'projects#dashboard_update'
