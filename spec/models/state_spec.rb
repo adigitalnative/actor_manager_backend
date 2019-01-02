@@ -26,6 +26,10 @@ RSpec.describe State, type: :model do
     expect(stubbed_state).to respond_to(:users)
   end
 
+  it "has opportunities" do
+    expect(stubbed_state).to respond_to(:opportunities)
+  end
+
   # Having an issue, wifi is out so debugging needs to wait for wifi
   context ".search?" do
     xit "can be true" do
@@ -75,7 +79,7 @@ RSpec.describe State, type: :model do
 
         user.states << @state_with_user_one
         user.states << @state_with_user_two
-        
+
         @result = State.to_scrape
       end
 
@@ -92,6 +96,45 @@ RSpec.describe State, type: :model do
       it "cleans up states w/o a user" do
         State.to_scrape
         expect(State.find(@state_wo_user.id).search).to eq(false)
+      end
+    end
+  end
+
+  # Need to add 'active' tag to an opportunity. It's set false when the op doesn't appear in the search results.
+
+  context ".active_opportunities" do
+    before do
+      @state = FactoryBot.create(:state)
+    end
+
+    context "when there are no opportunities" do
+      it "returns an empty array" do
+        expect(@state.active_opportunities.count).to eq(0)
+      end
+    end
+
+    context "when there are no active opportunities" do
+      before do
+        @opportunity = FactoryBot.create(:opportunity, active: false, state: @state)
+      end
+
+      it "returns an empty array" do
+        expect(@state.active_opportunities.count).to eq(0)
+      end
+    end
+
+    context "when there are active opportunities" do
+      before do
+        @opportunity = FactoryBot.create(:opportunity, active: true, state: @state)
+        @inactive_opp = FactoryBot.create(:opportunity, active: false, state: @state)
+      end
+
+      it "returns an array of those opportunities" do
+        expect(@state.active_opportunities).to include(@opportunity)
+      end
+
+      it "doesn't include inactive opportunities" do
+        expect(@state.active_opportunities).to_not include(@inactive_opp)
       end
     end
   end

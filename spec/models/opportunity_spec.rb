@@ -31,4 +31,9 @@ RSpec.describe Opportunity, type: :model do
     opportunity.state = nil
     expect(opportunity).to_not be_valid
   end
+
+  it "is invalid without an active? boolean" do
+    opportunity.active = nil
+    expect(opportunity).to_not be_valid
+  end
 end
