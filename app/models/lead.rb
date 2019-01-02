@@ -1,6 +1,7 @@
 class Lead < ApplicationRecord
   belongs_to :opportunity
   belongs_to :user
+  has_one :audition
 
   validates :new, inclusion: {in: [true, false]}
   validates :archived, inclusion: {in: [true, false]}

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :companies, only: [:index, :update]
       resources :opportunities, only: [:index] do
         patch '/archive', to: 'opportunities#toggle_archived'
+        post '/audition', to: 'auditions#create_from_opportunity'
       end
 
       resources :users, only: [:create]

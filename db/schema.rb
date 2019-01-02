@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_02_011653) do
+ActiveRecord::Schema.define(version: 2019_01_02_181626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,9 @@ ActiveRecord::Schema.define(version: 2019_01_02_011653) do
     t.bigint "category_id"
     t.bigint "user_id"
     t.datetime "date_and_time"
+    t.bigint "lead_id"
     t.index ["category_id"], name: "index_auditions_on_category_id"
+    t.index ["lead_id"], name: "index_auditions_on_lead_id"
     t.index ["project_id"], name: "index_auditions_on_project_id"
     t.index ["user_id"], name: "index_auditions_on_user_id"
   end
@@ -142,6 +144,7 @@ ActiveRecord::Schema.define(version: 2019_01_02_011653) do
   add_foreign_key "audition_pieces", "auditions"
   add_foreign_key "audition_pieces", "book_items"
   add_foreign_key "auditions", "categories"
+  add_foreign_key "auditions", "leads"
   add_foreign_key "auditions", "projects"
   add_foreign_key "auditions", "users"
   add_foreign_key "book_items", "users"
