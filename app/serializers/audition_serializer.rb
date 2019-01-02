@@ -1,5 +1,5 @@
 class AuditionSerializer < ActiveModel::Serializer
-  attributes :id, :bring, :prepare, :project, :company, :category, :result, :dateTime
+  attributes :id, :bring, :prepare, :project, :company, :category, :result, :dateTime, :lead
   has_one :report
   has_many :pieces
 
