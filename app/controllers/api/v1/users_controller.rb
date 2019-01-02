@@ -15,7 +15,7 @@ class Api::V1::UsersController < ApplicationController
   def update
     params[:user][:state_ids] = set_audition_states(params[:user][:audition_states])
     if @user.update(user_params)
-      render json: { user: @user }, include: ['states'], status: :accepted
+      render json: @user, include: ['states'], status: :accepted
     else
       render json: {error: true, message: "Invalid entry"}, status: :not_acceptable
     end

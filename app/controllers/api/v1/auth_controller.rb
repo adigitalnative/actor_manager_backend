@@ -15,7 +15,7 @@ class Api::V1::AuthController < ApplicationController
   def authorize_token
     if current_user
       token = encode_token({ user_id: @user.id })
-      render json: { user: UserSerializer.new(current_user), token: token}, status: :accepted
+      render json: { user: UserSerializer.new(current_user), token: token, include: ['states']}, status: :accepted
     else
       render json: { message: "Invalid token", error: true}, status: :unauthorized
     end
