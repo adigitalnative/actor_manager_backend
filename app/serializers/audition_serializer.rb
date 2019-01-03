@@ -1,11 +1,19 @@
 class AuditionSerializer < ActiveModel::Serializer
-  attributes :id, :bring, :prepare, :project, :company, :category, :result, :dateTime, :lead
+  attributes :id, :bring, :prepare, :project, :company, :category, :result, :dateTime, :lead, :url
   has_one :report
   has_many :pieces
 
   def dateTime
     if object.date_and_time
       object.date_and_time.strftime('%a, %b %e, %Y at %l:%M %P')
+    else
+      nil
+    end
+  end
+
+  def url
+    if object.lead
+      object.lead.opportunity.url
     else
       nil
     end

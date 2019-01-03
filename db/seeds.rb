@@ -352,7 +352,7 @@ tnkOne.save
 
 ### Set up states seed - this is for the demo ONLY!
 
-Opportunity.source_opportunities(["DC", "MD", "VA", "CO", "MI"])
+Opportunity.source_opportunities(["DC", "MD", "VA", "CO", "MI", "WA"])
 
 Opportunity.create([
   {
