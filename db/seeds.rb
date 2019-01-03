@@ -116,6 +116,7 @@ blightAud = Audition.find_or_create_by(
   prepare: "Sides",
   category: openCall,
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 blightAud.book_items << b_izzy
@@ -128,6 +129,7 @@ pericAudOne = Audition.find_or_create_by(
   prepare: "1 classical 3-5 m monologue",
   category: epa,
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 pericAudOne.book_items << b_prologue
@@ -144,7 +146,8 @@ pericAudTwo = Audition.find_or_create_by(
   bring: "nothing",
   prepare: "sides for Lychorida",
   category: invitedAudition,
-  user: jq
+  user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 pericAudTwo.book_items << b_sides
@@ -161,6 +164,7 @@ davenantAud = Audition.find_or_create_by(
   bring: "2 copies HS + resume",
   prepare: "Provided sides, song",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 davenantAud.book_items << b_sides
@@ -172,15 +176,16 @@ historiesOne = Audition.find_or_create_by(
   bring: "2 copies hs + resume",
   prepare: "Your choice of 1 of the provided sides",
   user: jq,
+  date_and_time: "Fri, Sep 14, 2018 at 5:00 pm"
 )
 
 historiesOne.book_items << b_sides
 historiesOne.save
 
 historiesOne.report.update(
-  notes: "Didn't have much time to prep, but team knew walking in.",
-  auditors: "Charlene, Jordan",
-  people: "The standard DC Shakespeare gang: Brendan, Bri, Amber, et al"
+  notes: "Didn't have much time to prep, but the casting team was aware.",
+  auditors: "Charlene Smith, Jordan Friend",
+  people: "Bri, Brendan, Jill, and the rest of the standard DC Shakespeare gang."
 )
 
 historiesTwo = Audition.find_or_create_by(
@@ -189,6 +194,7 @@ historiesTwo = Audition.find_or_create_by(
   bring: "optional: instrument to use in improv",
   prepare: "Indicated sides, review HVI P2 for improv",
   user: jq,
+  date_and_time: "Sat, Dec 1, 2018 at 5:00 pm"
 )
 
 historiesTwo.book_items << b_sides
@@ -200,6 +206,7 @@ historiesThree = Audition.find_or_create_by(
   bring: "nothing",
   prepare: "Provided sides for Richard II",
   user: jq,
+  date_and_time: "Sat, Dec 8, 2018 at 6:30 pm"
 )
 
 historiesThree.book_items << b_sides
@@ -216,6 +223,7 @@ fatherOne = Audition.find_or_create_by(
   bring: "1 copy of Headshot & Resume",
   prepare: "Provided sides",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 fatherOne.book_items << b_sides
@@ -227,6 +235,7 @@ sistersOne = Audition.find_or_create_by(
   bring: "1 copy of Headshot & Resume",
   prepare: "Provided sides",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 sistersOne.book_items << b_sides
@@ -238,6 +247,7 @@ wolvesOne = Audition.find_or_create_by(
   bring: "1 copy of Headshot & Resume",
   prepare: "Short contemporary monologue",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 wolvesOne.book_items << b_izzy
@@ -249,6 +259,7 @@ rgOne = Audition.find_or_create_by(
   bring: "1 copy of Headshot & Resume",
   prepare: "Classical Monologue",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 rgOne.book_items << b_prologue
@@ -260,6 +271,7 @@ rgTwo = Audition.find_or_create_by(
   bring: "2 copies of Headshot & Resume",
   prepare: "Prepared Sides",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 rgTwo.book_items << b_sides
@@ -271,6 +283,7 @@ sspOne = Audition.find_or_create_by(
   bring: "2 copies of Headshot & Resume",
   prepare: "Prepared Sides & a period song or carol",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 sspOne.book_items << b_sides
@@ -282,6 +295,7 @@ msndFolgOne = Audition.find_or_create_by(
   bring: "2 copies of Headshot & Resume",
   prepare: "Prepared Sides",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 msndFolgOne.book_items << b_sides
@@ -293,6 +307,7 @@ electraOne = Audition.find_or_create_by(
   bring: "1 copies of Headshot & Resume",
   prepare: "Prepared Sides",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 electraOne.book_items << b_sides
@@ -304,6 +319,7 @@ kingJohnOne = Audition.find_or_create_by(
   bring: "1 copies of Headshot & Resume",
   prepare: "Prepared Sides",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 kingJohnOne.book_items << b_sides
@@ -315,6 +331,7 @@ venusOne = Audition.find_or_create_by(
   bring: "1 copies of Headshot & Resume",
   prepare: "Prepared Sides",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 venusOne.book_items << b_sides
@@ -326,6 +343,7 @@ tnkOne = Audition.find_or_create_by(
   bring: "1 copies of Headshot & Resume",
   prepare: "Classical Monologue",
   user: jq,
+  date_and_time: DateTime.now+(rand(1..365))
 )
 
 tnkOne.book_items << b_prologue
