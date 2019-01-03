@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       post '/login', to: 'auth#create'
       post '/authorize', to: 'auth#authorize_token'
       get '/result_options', to: "report#result_options"
+
+      post '/subscribe', to: "mailing_list_signups#create"
     end
   end
 end
