@@ -31,12 +31,12 @@ RSpec.describe "Editing the current user", type: :request do
       end
 
       it "returns a user with the new first and last names" do
-        expect(@body[:user][:first_name]).to eq("Foo")
-        expect(@body[:user][:last_name]).to eq("Hah")
+        expect(@body[:first_name]).to eq("Foo")
+        expect(@body[:last_name]).to eq("Hah")
       end
 
       it "returns a user with the proper audition states" do
-        expect(@body[:user][:states].count).to eq(3)
+        expect(@body[:states].count).to eq(3)
       end
     end
 
