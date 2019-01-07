@@ -22,6 +22,18 @@ After that, you can always start up the server with:
 
 There is a relatively robust rspec test suite. Use `rspec` to run the specs.
 
+## Searching for auditions
+
+Audition searches are intended to be triggered daily via a worker. That worker - or a manual search - should use the following commands.
+
+Search opportunities by state or states. Pass in an array of abbreviated states (i.e. ["WA", "OR", "ID]), or a string: "WA, MD, OR", or a single state ("WA"):
+
+`Opportunity.source_opportunities(<state or states>)`
+
+Search all states that users have indicated interest in:
+
+`Opportunity.source_global_opportunities`
+
 ## Credits
 
 Created by Jacqueline Chenault (@adigitalnative)
