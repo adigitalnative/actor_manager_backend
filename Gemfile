@@ -38,9 +38,10 @@ gem 'jwt'
 # gem 'thespis', path: '../thespis' # This will use the local version if needed for development
 gem 'thespis', git: 'https://github.com/NativeFoundry/thespis.git'
 
+# Call 'byebug' anywhere in the code to stop execution and get a debugger console
+gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
   gem 'faker'
