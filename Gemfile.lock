@@ -1,5 +1,6 @@
-PATH
-  remote: ../thespis
+GIT
+  remote: https://github.com/NativeFoundry/thespis.git
+  revision: 81b632786128aa747a0dd55435c758e816117621
   specs:
     thespis (0.3.0)
       nokogiri

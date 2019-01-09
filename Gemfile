@@ -35,7 +35,8 @@ gem 'active_model_serializers'
 gem 'jwt'
 
 # Use CUSTOM Thespis gem to scrape sites for auditions
-gem 'thespis', path: '../thespis'
+# gem 'thespis', path: '../thespis' # This will use the local version if needed for development
+gem 'thespis', git: 'https://github.com/NativeFoundry/thespis.git'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
