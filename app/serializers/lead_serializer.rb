@@ -1,13 +1,6 @@
 class LeadSerializer < ActiveModel::Serializer
-  attributes :id, :new, :archived, :audition
+  attributes :id, :new, :archived
   belongs_to :opportunity
-
-  def audition
-    if object.audition
-      true
-    else
-      false
-    end
-  end
+  has_one :audition
 
 end
