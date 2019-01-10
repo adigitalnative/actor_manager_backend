@@ -24,3 +24,6 @@
 
 # Ignore generated ERD file
 erd.pdf
+
+# Ignore heroku env vars for development because env are a thing.
+.env
