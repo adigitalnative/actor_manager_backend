@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
   def encode_token(payload)
     # This is not a very secret secret. Use ENV variable or encrypted store
     # before deploying.
-    JWT.encode(payload, 'the_secret')
+    JWT.encode(payload, ENV['JWT_SECRET'])
   end
 
   def auth_header
@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
     if auth_header
       token = auth_header.split(' ')[1]
       begin
-        JWT.decode(token, 'the_secret', true, algorithm: 'HS256')
+        JWT.decode(token, ENV['JWT_SECRET'], true, algorithm: 'HS256')
       rescue JWT::DecodeError
         nil
       end
