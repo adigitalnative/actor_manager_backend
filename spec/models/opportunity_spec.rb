@@ -36,4 +36,27 @@ RSpec.describe Opportunity, type: :model do
     opportunity.active = nil
     expect(opportunity).to_not be_valid
   end
+
+  context "url" do
+    before do
+      state = FactoryBot.create(:state)
+      @opportunity = FactoryBot.build(:opportunity, state: state)
+    end
+
+    context "when the url starts with 'http://'" do
+      it "saves the URL without the prefix" do
+        @opportunity.url = "http://thisisthelocation.com/auditions/ladjf8493akjdf"
+        @opportunity.save
+        expect(Opportunity.find(@opportunity.id).url).to eq("thisisthelocation.com/auditions/ladjf8493akjdf")
+      end
+    end
+
+    context "when the url starts with 'https://'" do
+      it "saves the url without the prefix" do
+        @opportunity.url = "https://thisisthelocation.com/auditions/ladjf8493akjdf"
+        @opportunity.save
+        expect(Opportunity.find(@opportunity.id).url).to eq("thisisthelocation.com/auditions/ladjf8493akjdf")
+      end
+    end
+  end
 end

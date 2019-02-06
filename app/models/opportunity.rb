@@ -1,4 +1,7 @@
 class Opportunity < ApplicationRecord
+
+  before_save :remove_http_prefix_from_url
+
   belongs_to :state
 
   validates :source, presence: true
@@ -20,5 +23,14 @@ class Opportunity < ApplicationRecord
       state = State.find_by_name(opportunity[:state])
       Opportunity.find_or_create_by(source: opportunity[:source], title: opportunity[:title], company: opportunity[:company], url: opportunity[:url], state: state)
     end
+  end
+
+  private
+
+  def remove_http_prefix_from_url
+    new_url = url
+    new_url.slice!(/^http:\/\//)
+    new_url.slice!(/^https:\/\//)
+    url = url
   end
 end
