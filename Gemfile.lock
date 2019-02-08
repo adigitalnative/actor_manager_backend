@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/NativeFoundry/thespis.git
-  revision: 81b632786128aa747a0dd55435c758e816117621
+  revision: 9dd270ad23a9fb9731dc21721a15fab4e9597110
   specs:
-    thespis (0.3.0)
+    thespis (0.3.1)
       nokogiri
 
 GEM

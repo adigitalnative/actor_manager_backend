@@ -39,11 +39,9 @@ class User < ApplicationRecord
   # TODO: Not specc'd for the moment. Needs specs
   def mark_states_for_search
     new_states = self.states.where(search: false)
-    # Commented for demo purposes
-    # Opportunity.source_opportunities(new_states.map {|s| s.name})
+    # Comment out next line to turn off source-on-demand for demo/speed purposes
+    Opportunity.source_opportunities(new_states.map {|s| s.name})
     new_states.update_all(search: true)
-
-    # Fire special search for new state's auditions from here
   end
 
 end
