@@ -5,7 +5,7 @@ RSpec.describe "Editing Book Items", type: :request do
     context "when the user exists and is signed in" do
       before do
         user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
         book_to_edit = FactoryBot.create(:book_item, user: user)
         patch '/api/v1/book/' + book_to_edit.id.to_s,
           headers: {
@@ -34,7 +34,7 @@ RSpec.describe "Editing Book Items", type: :request do
     context "when the data is invalid" do
       before do
         user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
         book_to_edit = FactoryBot.create(:book_item, user: user)
 
         patch '/api/v1/book/' + book_to_edit.id.to_s,
@@ -58,7 +58,7 @@ RSpec.describe "Editing Book Items", type: :request do
     context "editing the 'prepared sides' book item" do
       before do
         user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
         book_to_edit = user.book_items.find_by_title("Prepared Sides")
         patch '/api/v1/book/' + book_to_edit.id.to_s,
           headers: {
@@ -86,7 +86,7 @@ RSpec.describe "Editing Book Items", type: :request do
     context "when the user token does not exist or is invalid" do
       before do
         user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
         book_to_edit = FactoryBot.create(:book_item, user: user)
         patch '/api/v1/book/' + book_to_edit.id.to_s
       end

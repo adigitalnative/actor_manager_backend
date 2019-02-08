@@ -5,7 +5,7 @@ RSpec.describe "Viewing your book", type: :request do
     context "when the user exists and is signed in" do
       before do
         @user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: @user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: @user.id}, ENV['JWT_SECRET'])
         FactoryBot.create_list(:book_item, 10, user: @user)
         get '/api/v1/book',
           headers: {
@@ -20,7 +20,7 @@ RSpec.describe "Viewing your book", type: :request do
       end
 
       it "returns the expected data" do
-        # Prepared sides are auto-generated and are the first book_item 
+        # Prepared sides are auto-generated and are the first book_item
         expect(@body.count).to eq(11)
       end
     end

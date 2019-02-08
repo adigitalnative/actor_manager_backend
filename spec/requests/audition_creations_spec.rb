@@ -4,7 +4,7 @@ RSpec.describe "AuditionCreations", type: :request do
   context "with valid input" do
     before do
       user = FactoryBot.create(:user)
-      jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
       project = FactoryBot.create(:project, user: user)
       category = FactoryBot.create(:category, name: "Foo")
       @piece = FactoryBot.create(:book_item, user: user)
@@ -47,7 +47,7 @@ RSpec.describe "AuditionCreations", type: :request do
   context "with invalid input" do
     before do
       user = FactoryBot.create(:user)
-      jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
       post '/api/v1/auditions',
         headers: {
           'Accept':'application/json',
@@ -62,7 +62,7 @@ RSpec.describe "AuditionCreations", type: :request do
                 }
       @body = JSON.parse(response.body, symbolize_names: true)
     end
-    
+
     it "returns 406 not accepted" do
       expect(response).to have_http_status(406)
     end

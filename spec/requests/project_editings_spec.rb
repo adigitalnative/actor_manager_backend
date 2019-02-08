@@ -5,7 +5,7 @@ RSpec.describe "Editing a project", type: :request do
     context "with a user" do
       before do
         @user = FactoryBot.create(:user)
-        @jwt = JWT.encode({user_id: @user.id}, 'the_secret')
+        @jwt = JWT.encode({user_id: @user.id}, ENV['JWT_SECRET'])
         @company = FactoryBot.create(:company, user: @user, name: "A Company")
         @project = FactoryBot.create(:project, company: @company, user: @user, name: "A project")
         @result = FactoryBot.create(:result)

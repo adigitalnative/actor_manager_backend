@@ -5,7 +5,7 @@ RSpec.describe "Creating book items", type: :request do
     context "when the user exists and is signed in" do
       before do
         user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
         post '/api/v1/book',
           headers: {
             'Accept':'application/json',
@@ -33,7 +33,7 @@ RSpec.describe "Creating book items", type: :request do
     context "when the data is invalid" do
       before do
         user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
         post '/api/v1/book',
           headers: {
             'Accept':'application/json',

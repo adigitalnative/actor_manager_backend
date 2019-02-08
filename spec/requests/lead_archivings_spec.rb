@@ -5,7 +5,7 @@ RSpec.describe "Archiving a lead", type: :request do
     context "when the lead exists and is not archived" do
       before do
         @user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: @user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: @user.id}, ENV['JWT_SECRET'])
 
         @dc = FactoryBot.create(:state, name: "DC")
         @user.states << @dc

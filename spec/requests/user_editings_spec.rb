@@ -4,7 +4,7 @@ RSpec.describe "Editing the current user", type: :request do
   describe "PATCH /users" do
     before do
       user = FactoryBot.create(:user, first_name: "Jane", last_name: "Doe")
-      @jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      @jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
       @dc = State.create(name: "DC")
       @md = State.create(name: "MD")
       @va = State.create(name: "VA")

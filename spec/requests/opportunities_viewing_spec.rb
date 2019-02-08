@@ -4,7 +4,7 @@ RSpec.describe "Accessing all opportunities via API", type: :request do
   describe "GET /api/v1/opportunities" do
     before do
       user = FactoryBot.create(:user)
-      jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
 
       @dc = FactoryBot.create(:state, name: "DC")
       user.states << @dc

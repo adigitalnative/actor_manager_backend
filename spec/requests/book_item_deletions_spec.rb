@@ -4,7 +4,7 @@ RSpec.describe "Deleting book items", type: :request do
   describe "DELETE /api/v1/book/:id" do
 
     let(:user) { FactoryBot.create(:user) }
-    let(:jwt) { JWT.encode({user_id: user.id}, 'the_secret') }
+    let(:jwt) { JWT.encode({user_id: user.id}, ENV['JWT_SECRET']) }
 
     before do
       @book_to_delete = FactoryBot.create(:book_item, user: user)

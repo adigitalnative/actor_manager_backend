@@ -13,7 +13,7 @@ RSpec.describe "Editing an audition", type: :request do
 
   context "with valid input" do
     before do
-      jwt = JWT.encode({user_id: @user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: @user.id}, ENV['JWT_SECRET'])
       patch '/api/v1/auditions/' + @audition.id.to_s,
       headers: {
         'Accept':'application/json',
@@ -46,7 +46,7 @@ RSpec.describe "Editing an audition", type: :request do
 
   context "with invalid input" do
     before do
-      jwt = JWT.encode({user_id: @user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: @user.id}, ENV['JWT_SECRET'])
       patch '/api/v1/auditions/' + @audition.id.to_s,
       headers: {
         'Accept':'application/json',

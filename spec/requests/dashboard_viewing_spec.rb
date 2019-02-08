@@ -5,7 +5,7 @@ RSpec.describe "Dashboard request", type: :request do
     context "with a valid user" do
       before do
         user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
         project_one = FactoryBot.create(:project, user: user)
         project_two = FactoryBot.create(:project, user: user)
         project_three = FactoryBot.create(:project, user: user)

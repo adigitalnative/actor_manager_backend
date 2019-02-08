@@ -4,7 +4,7 @@ RSpec.describe "Viewing auditions", type: :request do
   describe "getting a list of auditions at /api/v1/auditions" do
     it "returns 200 OK" do
       user = FactoryBot.create(:user)
-      jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
       get api_v1_auditions_path,
       headers: {
         'Accept':'application/json',
@@ -16,7 +16,7 @@ RSpec.describe "Viewing auditions", type: :request do
     context "when there is at least one audition" do
       before do
         user = FactoryBot.create(:user)
-        jwt = JWT.encode({user_id: user.id}, 'the_secret')
+        jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
         category = FactoryBot.create(:category, name: "Callback")
         @company = FactoryBot.create(:company, name: "A company", user: user)
         @project = FactoryBot.create(:project, name: "A Project", company: @company, user: user)

@@ -4,7 +4,7 @@ RSpec.describe "Deleting an audition", type: :request do
   context "when the audition exists" do
     before do
       user = FactoryBot.create(:user)
-      @jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      @jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
       project = FactoryBot.create(:project, user: user)
       category = FactoryBot.create(:category)
       @audition_to_delete = FactoryBot.create(:audition, project: project, category: category, user: user)
@@ -46,7 +46,7 @@ RSpec.describe "Deleting an audition", type: :request do
   context "when the audition cannot be found" do
     before do
       user = FactoryBot.create(:user)
-      jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
       project = FactoryBot.create(:project, user: user)
       category = FactoryBot.create(:category)
       @audition_to_delete = FactoryBot.create(:audition, project: project, category: category, user: user)

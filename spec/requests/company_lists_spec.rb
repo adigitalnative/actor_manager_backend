@@ -4,7 +4,7 @@ RSpec.describe "CompanyLists", type: :request do
   describe "GET /companies" do
     before do
       user = FactoryBot.create(:user)
-      jwt = JWT.encode({user_id: user.id}, 'the_secret')
+      jwt = JWT.encode({user_id: user.id}, ENV['JWT_SECRET'])
       FactoryBot.create_list(:company, 10, user: user)
       get '/api/v1/companies',
       headers: {
